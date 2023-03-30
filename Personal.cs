@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Personal:MonoBehaviour {
 	float Vx;
@@ -10,6 +11,8 @@ public class Personal:MonoBehaviour {
 	Rigidbody2D CorpoRigido;
 	float VelocidadePulo;
 	BoxCollider2D Colisor;
+	Text UiTextPontos;
+	int QtdPontos;
 
 	void Start (){
 		Vx = 0;
@@ -20,6 +23,8 @@ public class Personal:MonoBehaviour {
 		CorpoRigido = GetComponent <Rigidbody2D> ();
 		Colisor = GetComponent<BoxCollider2D>();
 		CorpoRigido.freezeRotation = true;
+		QtdPontos = 0;
+		UiTextPontos = GameObject.FindGameObjectWithTag ("qtdPontos").GetComponent<Text> ();
 	}
 
 	void Update (){
@@ -64,6 +69,12 @@ public class Personal:MonoBehaviour {
 		if (tagTocada == "bomba") {
 			//se o personagem tocar na bomba, o personagem(gamme object) é destruído.
 			Destroy (gameObject);
-		}	
-	}
+		}
+		if (tagTocada == "coins" ) {
+			QtdPontos=QtdPontos+1;
+			string textoPontos= QtdPontos.ToString();
+			UiTextPontos.text = textoPontos;
+			Destroy (objetoTocado.gameObject);
+	    }
+ }
 }
